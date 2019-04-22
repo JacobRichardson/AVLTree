@@ -1,2 +1,2 @@
 # AVL Tree
-This project constructs and AVL tree.
+This project constructs an AVL tree.
