@@ -21,24 +21,28 @@ public class AVLInsertRichardson
 	 */
 	public AVLInsertRichardson(String fileName)
 	{
+		
 		try {
 			
 			//Create a scanner object for the file.
 			Scanner sc = new Scanner(new File(fileName));
-			
 			//Create a print writer for the output file.
 			PrintWriter w = new PrintWriter("output.txt");
+			//Variable for the root.
+			AVLNodeRichardson root = null;
 			
-			//The the input file has a next int.
+			//While the input file has a next int.
 			while(sc.hasNextInt()) 
 			{
-				//TODO: Potentially pass something in that isn't null.
-				//Insert the key into the AVL tree.
-				insert(sc.nextInt(), null);
+				//Grab the next int.			
+				int key = sc.nextInt();
+				//Write to the output file.
+				w.print("Insert " + key + ": ");
+				//Set root equal to the insert of k and root.
+				root = insert(key, root);
+				//Output the print tree to the output file.
+				w.println(printTree(root));
 			}
-			
-			//TODO: Call printTree to print the tree.
-			
 			
 			//Close the print writer.
 			w.close();
@@ -68,9 +72,8 @@ public class AVLInsertRichardson
 		//If p is null.
 		if(p == null) 
 		{
-			//TODO: Figure out what to do with this node.
 			//Insert the AVL node.
-			AVLNodeRichardson node = new AVLNodeRichardson(k, 0, null, null);
+			p = new AVLNodeRichardson(k, 0, null, null);
 			
 			//Set h equal to true.
 			h = true;
@@ -89,11 +92,15 @@ public class AVLInsertRichardson
 					case 0:
 						//Set p's balance factor to -1.
 						p.setBalanceFactor(-1);
+						//Break out of the case.
+						break;
 					case 1:
 						//Set the bance to zero.
 						p.setBalanceFactor(0);
 						//Set h to false.
 						h = false;
+						//Break out of the case.
+						break;
 					case -1:
 						//Set p1 equal to the left node of p.
 						p1 = p.getLeftNode();
@@ -101,14 +108,14 @@ public class AVLInsertRichardson
 						if(p1.getBalanceFactor() == -1)
 						{
 							//Preform an LL rotation.
-							LLRotation(p);
+							p = LLRotation(p);
 							//Set h to false;
 							h = false;
 						}
 						else
 						{
 							//Preform an LR rotation.
-							LRRotation(p);
+							p = LRRotation(p);
 							//Set h to false;
 							h = false;
 						}	
@@ -129,6 +136,8 @@ public class AVLInsertRichardson
 					case 0: 
 						//Set p's balance factor to 1.
 						p.setBalanceFactor(1); 
+						//Break out of the case.
+						break;
 					case 1:
 						//Set p1 = to the right node of p.
 						p1 = p.getRightNode();
@@ -136,17 +145,19 @@ public class AVLInsertRichardson
 						if(p1.getBalanceFactor() == 1)
 						{
 							//Preform a RR rotation.
-							RRRotation(p);
+							p = RRRotation(p);
 							//Set h to false;
 							h = false;
 						}
 						else
 						{
 							//Preform RL rotation
-							RLRotation(p);
+							p = RLRotation(p);
 							//Set h to false;
 							h = false;
 						}
+						//Break out of the case.
+						break;
 					case -1:
 						//Set the balance factor of p to 0.
 						p.setBalanceFactor(0);
@@ -156,18 +167,16 @@ public class AVLInsertRichardson
 			}
 		}
 		
-		
-		//TODO: Change the return to something else. Potenially the root node?
-		//Return an AVL node.
-		return null;
-		
+		//Return p.
+		return p;
 	}
 	
 	/*
 	 * This method preforms a left left rotation.
+	 * @return P is the the rotated node.
 	 * @param P is the unbalanced node.
 	 */
-	public void LLRotation(AVLNodeRichardson p)
+	public AVLNodeRichardson LLRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getLeftNode();
@@ -175,20 +184,23 @@ public class AVLInsertRichardson
 		p.setLeftNode(p1.getRightNode());
 		//Set the right node of p1 to p.
 		p1.setRightNode(p);
-		//Set p equal to p;
+		//Set p equal to p1;
 		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
 		p1.setBalanceFactor(0);
+		//Return p;
+		return p;
 
 	}
 	
 	/*
 	 * This method preforms a left right rotation.
+	 * @return P is the the rotated node.
 	 * @param P is the unbalanced node.
 	 */
-	public void LRRotation(AVLNodeRichardson p)
+	public AVLNodeRichardson LRRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getLeftNode();
@@ -226,20 +238,22 @@ public class AVLInsertRichardson
 			//Set p1's balance factor to -1.
 			p1.setBalanceFactor(-1);
 		}
-		
+	
 		//Set p equal to p2.
 		p = p2;
-		
 		//Set p's balance factor to 0.
 		p.setBalanceFactor(0);
+		//Return p;
+		return p;
 		
 	}
 	
 	/*
 	 * This method preforms a right right rotation.
+	 * @return P is the the rotated node.
 	 * @param P is the unbalanced node.
 	 */
-	public void RRRotation(AVLNodeRichardson p)
+	public AVLNodeRichardson RRRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getRightNode();
@@ -247,20 +261,23 @@ public class AVLInsertRichardson
 		p.setRightNode(p1.getLeftNode());
 		//Set the left node of p1 to p.
 		p1.setLeftNode(p);
-		//Set p equal to p;
+		//Set p equal to p1;
 		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
 		p1.setBalanceFactor(0);
+		//Return p.
+		return p;
 
 	}
 	
 	/*
 	 * This method preforms a right left rotation.
+	 * @return P is the the rotated node.
 	 * @param P is the unbalanced node.
 	 */
-	public void RLRotation(AVLNodeRichardson p)
+	public AVLNodeRichardson RLRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getRightNode();
@@ -301,17 +318,27 @@ public class AVLInsertRichardson
 		
 		//Set p equal to p2.
 		p = p2;
-		
 		//Set p's balance factor to 0.
 		p.setBalanceFactor(0);
+		//Retrun p.
+		return p;
 	}
 
 	/*
 	 * This method prints out a fully parenthesized expression of the AVL tree.
 	 */
-	public void printTree()
+	public String printTree(AVLNodeRichardson node)
 	{
-		//TODO: Implment a recursive print tree method.
+		//String that prints out the tree.
+		String s = "";
+		//If the node is not null.
+		if(node != null)
+		{
+			//Add the key of the tree plus the print tree of the left and right node.
+			s += node.getKey() + "(" + printTree(node.getLeftNode()) + ")" + "(" + printTree(node.getRightNode()) + ")";
+		}
+		//Return s.
+		return s;
 	}
 	
 	/*
