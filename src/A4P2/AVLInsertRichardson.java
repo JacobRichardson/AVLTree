@@ -156,18 +156,19 @@ public class AVLInsertRichardson
 	 */
 	public void LLRotation(AVLNodeRichardson p)
 	{
-		//Set p1 to the left node of p.
+		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getLeftNode();
 		//Set the left node of p to the right node of p1.
 		p.setLeftNode(p1.getRightNode());
 		//Set the right node of p1 to p.
 		p1.setRightNode(p);
+		//Set p equal to p;
+		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
-		p.setBalanceFactor(0);
-		//Set p equal to p;
-		p = p1;
+		p1.setBalanceFactor(0);
+
 	}
 	
 	/*
@@ -176,7 +177,48 @@ public class AVLInsertRichardson
 	 */
 	public void LRRotation(AVLNodeRichardson p)
 	{
+		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
+		AVLNodeRichardson p1 = p.getLeftNode();
+		//Set p2 to the right node of p1.
+		AVLNodeRichardson p2 = p1.getRightNode();
+		//Set the right node of p1 equal to the left node of p2.
+		p1.setRightNode(p2.getLeftNode());
+		//Set the left node of p equal to the right node of p2.
+		p.setLeftNode(p2.getRightNode());
+		//Set the right node of p2 equal to p.
+		p2.setRightNode(p);
+		//Set the left node of p2 equal to p1.
+		p2.setLeftNode(p1);
+
+		//If the balance factor of p2 equals 0.
+		if(p2.getBalanceFactor() == 0)
+		{
+			//Set p's and p1's balance factor to 0.
+			p.setBalanceFactor(0);
+			p1.setBalanceFactor(0);
+		}
+		//else if the balance factor of p equals -1.
+		else if(p2.getBalanceFactor() == -1)
+		{
+			//Set p's balance factor to 1.
+			p.setBalanceFactor(1);
+			//Set p1's balance factor to 0.
+			p1.setBalanceFactor(0);
+		}
+		//else if the balance factor of p equals 1.
+		else if(p2.getBalanceFactor() == 1)
+		{
+			//Set p's balance factor to 0.
+			p.setBalanceFactor(0);
+			//Set p1's balance factor to -1.
+			p1.setBalanceFactor(-1);
+		}
 		
+		//Set p equal to p2.
+		p = p2;
+		
+		//Set p's balance factor to 0.
+		p.setBalanceFactor(0);
 		
 	}
 	
@@ -186,18 +228,19 @@ public class AVLInsertRichardson
 	 */
 	public void RRRotation(AVLNodeRichardson p)
 	{
-		//Set p1 to the right node of p.
+		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
 		AVLNodeRichardson p1 = p.getRightNode();
 		//Set the right node of p to the left node of p1.
 		p.setRightNode(p1.getLeftNode());
 		//Set the left node of p1 to p.
 		p1.setLeftNode(p);
+		//Set p equal to p;
+		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
-		p.setBalanceFactor(0);
-		//Set p equal to p;
-		p = p1;
+		p1.setBalanceFactor(0);
+
 	}
 	
 	/*
@@ -206,7 +249,48 @@ public class AVLInsertRichardson
 	 */
 	public void RLRotation(AVLNodeRichardson p)
 	{
+		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
+		AVLNodeRichardson p1 = p.getRightNode();
+		//Set p2 to the left node of p1.
+		AVLNodeRichardson p2 = p1.getLeftNode();
+		//Set the left node of p1 equal to the right node of p2.
+		p1.setLeftNode(p2.getRightNode());
+		//Set the right node of p equal to the left node of p2.
+		p.setRightNode(p2.getLeftNode());
+		//Set the left node of p2 equal to p.
+		p2.setLeftNode(p);
+		//Set the right node of p2 equal to p1.
+		p2.setRightNode(p1);
+
+		//If the balance factor of p2 equals 0.
+		if(p2.getBalanceFactor() == 0)
+		{
+			//Set p's and p1's balance factor to 0.
+			p.setBalanceFactor(0);
+			p1.setBalanceFactor(0);
+		}
+		//else if the balance factor of p equals -1.
+		else if(p2.getBalanceFactor() == -1)
+		{
+			//Set p's balance factor to 0.
+			p.setBalanceFactor(0);
+			//Set p1's balance factor to 0.
+			p1.setBalanceFactor(1);
+		}
+		//else if the balance factor of p equals 1.
+		else if(p2.getBalanceFactor() == 1)
+		{
+			//Set p's balance factor to -1.
+			p.setBalanceFactor(-1);
+			//Set p1's balance factor to 0.
+			p1.setBalanceFactor(0);
+		}
 		
+		//Set p equal to p2.
+		p = p2;
+		
+		//Set p's balance factor to 0.
+		p.setBalanceFactor(0);
 	}
 
 	/*
