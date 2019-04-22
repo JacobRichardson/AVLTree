@@ -26,10 +26,18 @@ public class AVLInsertRichardson
 			//Create a scanner object for the file.
 			Scanner sc = new Scanner(new File(fileName));
 			
-			//TODO: Use split by \t to get all the keys in an array.
-			
+			//Create a print writer for the output file.
 			PrintWriter w = new PrintWriter("output.txt");
 			
+			//The the input file has a next int.
+			while(sc.hasNextInt()) 
+			{
+				//TODO: Potentially pass something in that isn't null.
+				//Insert the key into the AVL tree.
+				insert(sc.nextInt(), null);
+			}
+			
+			//TODO: Call printTree to print the tree.
 			
 			
 			//Close the print writer.
@@ -37,9 +45,7 @@ public class AVLInsertRichardson
 			
 			//Close the file scanner.
 			sc.close();
-			
-			
-			
+					
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -52,29 +58,37 @@ public class AVLInsertRichardson
 	 */
 	public AVLNodeRichardson insert(int k, AVLNodeRichardson p)
 	{
-		//TODO: Figure out how to get h. This means how to tell if the tree has grown in height.
 		
 		//Variable to determine if the tree has grown higher. This is initally set to false.
 		Boolean h = false;
 		
+		//Variable for a pointer to a node.
 		AVLNodeRichardson p1;
 		
 		//If p is null.
 		if(p == null) 
 		{
+			//TODO: Figure out what to do with this node.
+			//Insert the AVL node.
+			AVLNodeRichardson node = new AVLNodeRichardson(k, 0, null, null);
 			
+			//Set h equal to true.
+			h = true;
 		}
 		else if( k < p.getKey())
 		{
-			//If the tree has grown on side.
+			//Set p's left node equal to the insert of k and p's left node.
+			p.setLeftNode(insert(k, p.getLeftNode()));
+			
+			//If the tree has grown on the left.
 			if(h)
 			{
-				
+				//Switch statment on p's balance factor.
 				switch(p.getBalanceFactor())
 				{
 					case 0:
-						//Set the balance factor to one less than what is was before.
-						p.setBalanceFactor(p.getBalanceFactor() - 1);
+						//Set p's balance factor to -1.
+						p.setBalanceFactor(-1);
 					case 1:
 						//Set the bance to zero.
 						p.setBalanceFactor(0);
@@ -97,25 +111,24 @@ public class AVLInsertRichardson
 							LRRotation(p);
 							//Set h to false;
 							h = false;
-						}
-						
-				}		
-					
+						}	
+				}			
 			}
 		}
 		else
 		{
-			//Set the right node of p equal to the node that is return with k and the right node of p.
+			//Set the right node of p equal to insert of k and p's right node.
 			p.setRightNode(insert(k, p.getRightNode()));
 			
-			//If the tree has grown on side.
+			//If the tree has grown on the right.
 			if(h)
 			{
+				//Switch statement on p's balance factor.
 				switch(p.getBalanceFactor())
 				{
 					case 0: 
-						//Set the balanceFactor to one more than what it was before.
-						p.setBalanceFactor(p.getBalanceFactor() + 1); 
+						//Set p's balance factor to 1.
+						p.setBalanceFactor(1); 
 					case 1:
 						//Set p1 = to the right node of p.
 						p1 = p.getRightNode();
@@ -144,7 +157,7 @@ public class AVLInsertRichardson
 		}
 		
 		
-		//TODO: CHANGE RETURN NULL TO SOMETHHING ELSE.
+		//TODO: Change the return to something else. Potenially the root node?
 		//Return an AVL node.
 		return null;
 		
@@ -298,7 +311,7 @@ public class AVLInsertRichardson
 	 */
 	public void printTree()
 	{
-		
+		//TODO: Implment a recursive print tree method.
 	}
 	
 	/*
