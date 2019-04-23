@@ -1,5 +1,5 @@
 /* 
- * A4 P1 AVL Tree
+ * A4 P2 AVL Tree
  *  
  * Jacob Richardson 
  * Assignment 4 Part 2
@@ -17,7 +17,7 @@ public class AVLInsertRichardson
 {
 	
 	//Variable to determine if the tree has grown higher. This is initally set to false.
-	private Boolean h = false;
+	private boolean h = false;
 	//Variable for a pointer to a node.
 	private AVLNodeRichardson p1;
 	//Variable for a pointer to a node.
@@ -188,12 +188,13 @@ public class AVLInsertRichardson
 		p.setLeftNode(p1.getRightNode());
 		//Set the right node of p1 to p.
 		p1.setRightNode(p);
-		//Set p equal to p1;
-		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
 		p1.setBalanceFactor(0);
+		//Set p equal to p1;
+		p = p1;
+
 		//Return p;
 		return p;
 
@@ -265,12 +266,13 @@ public class AVLInsertRichardson
 		p.setRightNode(p1.getLeftNode());
 		//Set the left node of p1 to p.
 		p1.setLeftNode(p);
-		//Set p equal to p1;
-		p = p1;
 		//Set the balanceFactor of p to 0.
 		p.setBalanceFactor(0);
 		//Set the balanceFactor of p1 to 0.
 		p1.setBalanceFactor(0);
+		//Set p equal to p1;
+		p = p1;
+
 		//Return p.
 		return p;
 	}

@@ -1,5 +1,5 @@
 /* 
- * A4 P1 AVL Tree
+ * A4 P2 AVL Tree
  *  
  * Jacob Richardson 
  * Assignment 4 Part 2
