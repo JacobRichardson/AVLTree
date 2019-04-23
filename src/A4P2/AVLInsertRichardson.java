@@ -15,6 +15,17 @@ import java.io.*;
 
 public class AVLInsertRichardson 
 {
+	
+	//Variable to determine if the tree has grown higher. This is initally set to false.
+	private Boolean h = false;
+	//Variable for a pointer to a node.
+	private AVLNodeRichardson p1;
+	//Variable for a pointer to a node.
+	private AVLNodeRichardson p2; 
+	//Root node.
+	private AVLNodeRichardson root;
+	
+	
 	/*
 	 * This method is the constructor.
 	 * @param fileName This is the string of the name of the input file.
@@ -28,8 +39,6 @@ public class AVLInsertRichardson
 			Scanner sc = new Scanner(new File(fileName));
 			//Create a print writer for the output file.
 			PrintWriter w = new PrintWriter("output.txt");
-			//Variable for the root.
-			AVLNodeRichardson root = null;
 			
 			//While the input file has a next int.
 			while(sc.hasNextInt()) 
@@ -62,13 +71,7 @@ public class AVLInsertRichardson
 	 */
 	public AVLNodeRichardson insert(int k, AVLNodeRichardson p)
 	{
-		
-		//Variable to determine if the tree has grown higher. This is initally set to false.
-		Boolean h = false;
-		
-		//Variable for a pointer to a node.
-		AVLNodeRichardson p1;
-		
+			
 		//If p is null.
 		if(p == null) 
 		{
@@ -138,6 +141,13 @@ public class AVLInsertRichardson
 						p.setBalanceFactor(1); 
 						//Break out of the case.
 						break;
+					case -1:
+						//Set the balance factor of p to 0.
+						p.setBalanceFactor(0);
+						//Set h to false;
+						h = false;
+						//Break out of the case.
+						break;
 					case 1:
 						//Set p1 = to the right node of p.
 						p1 = p.getRightNode();
@@ -156,17 +166,11 @@ public class AVLInsertRichardson
 							//Set h to false;
 							h = false;
 						}
-						//Break out of the case.
-						break;
-					case -1:
-						//Set the balance factor of p to 0.
-						p.setBalanceFactor(0);
-						//Set h to false;
-						h = false;
+
 				}
 			}
 		}
-		
+
 		//Return p.
 		return p;
 	}
@@ -179,7 +183,7 @@ public class AVLInsertRichardson
 	public AVLNodeRichardson LLRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
-		AVLNodeRichardson p1 = p.getLeftNode();
+		p1 = p.getLeftNode();
 		//Set the left node of p to the right node of p1.
 		p.setLeftNode(p1.getRightNode());
 		//Set the right node of p1 to p.
@@ -203,9 +207,9 @@ public class AVLInsertRichardson
 	public AVLNodeRichardson LRRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the left node of p. P is a pointer to the unbalanced node.
-		AVLNodeRichardson p1 = p.getLeftNode();
+		p1 = p.getLeftNode();
 		//Set p2 to the right node of p1.
-		AVLNodeRichardson p2 = p1.getRightNode();
+		p2 = p1.getRightNode();
 		//Set the right node of p1 equal to the left node of p2.
 		p1.setRightNode(p2.getLeftNode());
 		//Set the left node of p equal to the right node of p2.
@@ -256,7 +260,7 @@ public class AVLInsertRichardson
 	public AVLNodeRichardson RRRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
-		AVLNodeRichardson p1 = p.getRightNode();
+		p1 = p.getRightNode();
 		//Set the right node of p to the left node of p1.
 		p.setRightNode(p1.getLeftNode());
 		//Set the left node of p1 to p.
@@ -269,7 +273,6 @@ public class AVLInsertRichardson
 		p1.setBalanceFactor(0);
 		//Return p.
 		return p;
-
 	}
 	
 	/*
@@ -280,9 +283,9 @@ public class AVLInsertRichardson
 	public AVLNodeRichardson RLRotation(AVLNodeRichardson p)
 	{
 		//Set p1 to the right node of p. P is a pointer to the unbalanced node.
-		AVLNodeRichardson p1 = p.getRightNode();
+		p1 = p.getRightNode();
 		//Set p2 to the left node of p1.
-		AVLNodeRichardson p2 = p1.getLeftNode();
+		p2 = p1.getLeftNode();
 		//Set the left node of p1 equal to the right node of p2.
 		p1.setLeftNode(p2.getRightNode());
 		//Set the right node of p equal to the left node of p2.
@@ -304,7 +307,7 @@ public class AVLInsertRichardson
 		{
 			//Set p's balance factor to 0.
 			p.setBalanceFactor(0);
-			//Set p1's balance factor to 0.
+			//Set p1's balance factor to 1.
 			p1.setBalanceFactor(1);
 		}
 		//else if the balance factor of p equals 1.
